@@ -47,9 +47,6 @@ public class RobotMap {
 	public static SpeedControllerWrapper driveLeft;
 	public static SpeedControllerWrapper driveRight;
 	
-	public static Encoder leftDriveEnc;
-	public static Encoder rightDriveEnc;
-	
 	//SUBSYSTEMS//
 	public static DriveTrain drivetrain;
 	
@@ -67,8 +64,8 @@ public class RobotMap {
 		driveLeft = new SpeedControllerWrapper(driveLeft1, driveLeft2, driveLeft3);
 		driveRight = new SpeedControllerWrapper(driveRight1, driveRight2, driveRight3);
 		
-		leftDriveEnc = new Encoder(kRightDriveEncPortA, kRightDriveEncPortB);
-		rightDriveEnc = new Encoder(kLeftDriveEncPortA, kLeftDriveEncPortB);
+		//@todo create custom CANTalon-encoder wrapper
+		
 	}
 	
 	// For example to map the left and right motors, you could define the

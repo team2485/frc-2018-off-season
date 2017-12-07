@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	public static Joystick XBOX;
-	public static Joystick JOYSTICK;
 	
 	public static final int XBOX_A_PORT = 1;
 	public static final int XBOX_B_PORT = 2;
@@ -44,5 +43,26 @@ public class OI {
 	public static JoystickButton XBOX_LBUMPER;
 	public static JoystickButton XBOX_RBUMPER;
 	public static JoystickButton XBOX_XBOX;
+	
+	public static void init() {
+		
+		XBOX = new Joystick(0);
+		
+		XBOX_UP = new JoystickButton(XBOX, XBOX_UP_PORT);
+		XBOX_DOWN = new JoystickButton(XBOX, XBOX_DOWN_PORT);
+		XBOX_LEFT = new JoystickButton(XBOX, XBOX_LEFT_PORT);
+		XBOX_RIGHT = new JoystickButton(XBOX, XBOX_RIGHT_PORT);
+		
+		XBOX_A = new JoystickButton(XBOX, XBOX_A_PORT);
+		XBOX_B = new JoystickButton(XBOX, XBOX_B_PORT);
+		XBOX_X = new JoystickButton(XBOX, XBOX_X_PORT);
+		XBOX_Y = new JoystickButton(XBOX, XBOX_Y_PORT);
+		
+		XBOX_LBUMPER = new JoystickButton(XBOX, XBOX_LBUMPER_PORT);
+		XBOX_RBUMPER = new JoystickButton(XBOX, XBOX_RBUMPER_PORT);
+		
+		XBOX_XBOX = new JoystickButton(XBOX, XBOX_XBOX_PORT);
+		
+	}
 	
 }
