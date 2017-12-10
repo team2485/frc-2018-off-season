@@ -11,6 +11,7 @@ public class CANTalonCurrentWrapper implements PIDSource {
 	
 	public CANTalonCurrentWrapper(CANTalon cantalon) {
 		this.canTalon = cantalon;
+		
 	}
 
 	@Override
