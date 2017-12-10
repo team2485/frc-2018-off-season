@@ -31,10 +31,15 @@ public class AHRSWrapperRateAndAngle implements PIDSource {
 		if (pidSource == PIDSourceType.kDisplacement) {
 			return (units == Units.RADS) ? Math.PI / 180 * RobotMap.ahrs.getAngle() : RobotMap.ahrs.getAngle();
 		} else {
-			double rate = RobotMap.ahrs.getRate() * 60; // multiply by 60 because kauai labs can't math
-			if (Math.abs(rate) > 360) {
-				rate = 0;
+			double delta = RobotMap.ahrs.getRate(); // multiply by 60 because kauai labs can't math
+			if(delta<-180) {
+				delta+=360;
 			}
+			else if(delta>180) {
+				delta-=360;
+			}
+			double rate = delta*60;
+			
 			return (units == Units.RADS) ? Math.PI / 180 * rate : rate;
 		}
 	}

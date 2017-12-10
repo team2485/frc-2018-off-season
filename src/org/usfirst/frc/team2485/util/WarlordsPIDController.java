@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
 
 /**
  * Class that implements a standard PID Control Loop without the abnormalities of WPI's PIDController class
@@ -32,6 +33,8 @@ public class WarlordsPIDController extends WarlordsControlSystem {
 	
 	private double minInput, maxInput;
 	private boolean continuous;
+	
+	private PIDSource maxOutputSource, minOutputSource;
 		
 	/**
 	 * 
@@ -186,12 +189,22 @@ public class WarlordsPIDController extends WarlordsControlSystem {
 		}
 	}
 
+	public void setOutputSources(PIDSource max,PIDSource min) {
+		
+		maxOutputSource=max;
+		minOutputSource=min;
+	}
 	
 	/**
 	 * Calculates output based on sensorVal but does not read from source or write to output directly
 	 */
 	protected synchronized void calculate() {
-		
+		if (maxOutputSource != null) {
+			maxOutput = maxOutputSource.pidGet();
+		}
+		if (minOutputSource != null) {
+			minOutput = minOutputSource.pidGet();
+		}
 		sensorVal = sources[0].pidGet();
 		double error = setpoint - sensorVal;
 
