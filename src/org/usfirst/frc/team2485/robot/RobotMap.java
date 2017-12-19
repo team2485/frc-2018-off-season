@@ -1,13 +1,22 @@
 package org.usfirst.frc.team2485.robot;
 
 import org.usfirst.frc.team2485.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2485.util.AHRSWrapperRateAndAngle;
+import org.usfirst.frc.team2485.util.DeadReckoning;
+import org.usfirst.frc.team2485.util.EncoderWrapperRateAndDistance;
+import org.usfirst.frc.team2485.util.MultipleEncoderWrapper;
 import org.usfirst.frc.team2485.util.SpeedControllerWrapper;
+import org.usfirst.frc.team2485.util.AHRSWrapperRateAndAngle.Units;
+import org.usfirst.frc.team2485.util.MultipleEncoderWrapper.MultipleEncoderWrapperMode;
 
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.hal.PDPJNI;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -35,6 +44,7 @@ public class RobotMap {
 	
 	//HARDWARE//
 	
+	
 	public static AHRS ahrs;
 	
 	public static CANTalon driveLeft1;
@@ -47,12 +57,39 @@ public class RobotMap {
 	public static SpeedControllerWrapper driveLeft;
 	public static SpeedControllerWrapper driveRight;
 	
+	//Sensors
+	public static Encoder driveEncLeft, driveEncRight;
+	
+	public static MultipleEncoderWrapper averageEncoderDistance, averageEncoderRate;
+	public static EncoderWrapperRateAndDistance driveEncRateLeft, driveEncRateRight;
+	public static AHRSWrapperRateAndAngle ahrsRateRads;
+	public static DeadReckoning autoDeadReckoning;
+	
+	public static PowerDistributionPanel pdp;
+	
+	
 	//SUBSYSTEMS//
-	public static DriveTrain drivetrain;
+	public static DriveTrain driveTrain;
 	
 	public static void init() {
+		
+		pdp = new PowerDistributionPanel();
 
 		ahrs = new AHRS(Port.kMXP);
+		
+		driveEncLeft = new Encoder(kLeftDriveEncPortA, kLeftDriveEncPortB);
+		driveEncRight = new Encoder(kRightDriveEncPortA, kRightDriveEncPortB);
+		
+
+		averageEncoderDistance = new MultipleEncoderWrapper(PIDSourceType.kDisplacement,
+				MultipleEncoderWrapperMode.AVERAGE, driveEncLeft, driveEncRight);
+
+		averageEncoderRate = new MultipleEncoderWrapper(PIDSourceType.kRate, MultipleEncoderWrapperMode.AVERAGE,
+				driveEncLeft, driveEncRight);
+		ahrsRateRads = new AHRSWrapperRateAndAngle(PIDSourceType.kRate, Units.RADS);
+		autoDeadReckoning = new DeadReckoning(ahrs, driveEncLeft, driveEncRight);
+
+		
 		
 		driveLeft1 = new CANTalon(driveLeftPort1);
 		driveLeft2 = new CANTalon(driveLeftPort2);
@@ -64,6 +101,7 @@ public class RobotMap {
 		driveLeft = new SpeedControllerWrapper(driveLeft1, driveLeft2, driveLeft3);
 		driveRight = new SpeedControllerWrapper(driveRight1, driveRight2, driveRight3);
 		
+		driveTrain  = new DriveTrain();
 		//@todo create custom CANTalon-encoder wrapper
 		
 	}
