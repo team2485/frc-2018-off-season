@@ -1,12 +1,14 @@
 package org.usfirst.frc.team2485.robot;
 
 import org.usfirst.frc.team2485.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2485.util.CANTalonEncoderWrapper;
 import org.usfirst.frc.team2485.util.SpeedControllerWrapper;
 
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 
 /**
@@ -47,6 +49,12 @@ public class RobotMap {
 	public static SpeedControllerWrapper driveLeft;
 	public static SpeedControllerWrapper driveRight;
 	
+	public static CANTalonEncoderWrapper driveEncLeft;
+	public static CANTalonEncoderWrapper driveEncRight;
+	
+	
+	
+	
 	//SUBSYSTEMS//
 	public static DriveTrain drivetrain;
 	
@@ -64,7 +72,8 @@ public class RobotMap {
 		driveLeft = new SpeedControllerWrapper(driveLeft1, driveLeft2, driveLeft3);
 		driveRight = new SpeedControllerWrapper(driveRight1, driveRight2, driveRight3);
 		
-		//@todo create custom CANTalon-encoder wrapper
+		driveEncLeft = new CANTalonEncoderWrapper(driveLeft1, PIDSourceType.kRate);
+		driveEncRight = new CANTalonEncoderWrapper(driveRight1, PIDSourceType.kRate);
 		
 	}
 	
