@@ -1,10 +1,14 @@
 package org.usfirst.frc.team2485.robot;
 
 import org.usfirst.frc.team2485.robot.subsystems.DriveTrain;
+<<<<<<< HEAD
 import org.usfirst.frc.team2485.util.AHRSWrapperRateAndAngle;
 import org.usfirst.frc.team2485.util.DeadReckoning;
 import org.usfirst.frc.team2485.util.EncoderWrapperRateAndDistance;
 import org.usfirst.frc.team2485.util.MultipleEncoderWrapper;
+=======
+import org.usfirst.frc.team2485.util.CANTalonEncoderWrapper;
+>>>>>>> master
 import org.usfirst.frc.team2485.util.SpeedControllerWrapper;
 import org.usfirst.frc.team2485.util.AHRSWrapperRateAndAngle.Units;
 import org.usfirst.frc.team2485.util.MultipleEncoderWrapper.MultipleEncoderWrapperMode;
@@ -14,7 +18,10 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDSourceType;
+<<<<<<< HEAD
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+=======
+>>>>>>> master
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.hal.PDPJNI;
 
@@ -57,6 +64,7 @@ public class RobotMap {
 	public static SpeedControllerWrapper driveLeft;
 	public static SpeedControllerWrapper driveRight;
 	
+<<<<<<< HEAD
 	//Sensors
 	public static Encoder driveEncLeft, driveEncRight;
 	
@@ -66,6 +74,12 @@ public class RobotMap {
 	public static DeadReckoning autoDeadReckoning;
 	
 	public static PowerDistributionPanel pdp;
+=======
+	public static CANTalonEncoderWrapper driveEncLeft;
+	public static CANTalonEncoderWrapper driveEncRight;
+	
+	
+>>>>>>> master
 	
 	
 	//SUBSYSTEMS//
@@ -101,8 +115,13 @@ public class RobotMap {
 		driveLeft = new SpeedControllerWrapper(driveLeft1, driveLeft2, driveLeft3);
 		driveRight = new SpeedControllerWrapper(driveRight1, driveRight2, driveRight3);
 		
+<<<<<<< HEAD
 		driveTrain  = new DriveTrain();
 		//@todo create custom CANTalon-encoder wrapper
+=======
+		driveEncLeft = new CANTalonEncoderWrapper(driveLeft1, PIDSourceType.kRate);
+		driveEncRight = new CANTalonEncoderWrapper(driveRight1, PIDSourceType.kRate);
+>>>>>>> master
 		
 	}
 	
